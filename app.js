@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const mongoose = require('mongoose');
+const mysql = require('mysql');
 const cors = require('cors');
 require('dotenv/config');
 const authJwt = require('./helpers/jwt');
@@ -32,10 +32,11 @@ app.use(`${api}/users`, usersRoutes);
 app.use(`${api}/orders`, ordersRoutes);
 
 //Database
-mongoose.connect(process.env.CONNECTION_STRING, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: 'eshop-database'
+const connection = mysql.createConnection({
+    host: '34.101.174.188',
+    user: 'root',
+    database: 'capstone-project-407108:asia-southeast2:project-capstone',
+    password: '12345678'
 })
 .then(()=>{
     console.log('Database Connection is ready...')
